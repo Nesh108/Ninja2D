@@ -6,7 +6,7 @@ public class TurretAI : MonoBehaviour
 	
 	// Integers
 	public int curHealth;
-	public int maxHealth;
+	public int maxHealth = 100;
 	
 	// Floats
 	public float distance;				// Distance between player and turret
@@ -53,6 +53,9 @@ public class TurretAI : MonoBehaviour
 		else
 			isLookingRight = false;
 
+		if(curHealth <= 0)
+			Destroy(gameObject);
+
 	}
 
 	void RangeCheck ()
@@ -93,5 +96,12 @@ public class TurretAI : MonoBehaviour
 			bulletTimer = 0;
 		}
 	
+	}
+
+	public void Damage (int dmg)
+	{
+		curHealth -= dmg;
+		gameObject.GetComponent<Animation>().Play("PlayerDamaged");
+
 	}
 }

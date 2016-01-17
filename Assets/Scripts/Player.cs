@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 	public int curHealth;
 	public int maxHealth = 100;
 	public int hpPerHeart = 20;
+	public int starsCollected = 0;
 
 	// References
 	private Rigidbody2D _rb2d;
@@ -80,6 +81,31 @@ public class Player : MonoBehaviour
 			_rb2d.velocity = new Vector2 (maxSpeed, _rb2d.velocity.y);
 		else if (_rb2d.velocity.x < -maxSpeed)
 			_rb2d.velocity = new Vector2 (-maxSpeed, _rb2d.velocity.y);
+	}
+
+	void OnTriggerEnter2D (Collider2D col)
+	{
+		// If the colliding object is a healing item, use it and destroy it
+		if (col.isTrigger){
+
+			if(col.CompareTag ("Healing")){
+			
+				Heal(col.GetComponent<HealingItem>().healAmount);
+				Destroy(col.gameObject);
+			}
+			else if (col.CompareTag ("Star")){
+
+				// To implement
+				starsCollected++;
+				Debug.Log ("Got " + starsCollected + " stars!");
+				Destroy(col.gameObject);
+			}
+
+		}  
+	}
+
+	void Heal(int amount){
+		curHealth = Mathf.Min(curHealth + amount, 100);
 	}
 
 	void Die ()
