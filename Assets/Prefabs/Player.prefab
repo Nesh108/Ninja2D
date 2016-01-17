@@ -151,7 +151,7 @@ MonoBehaviour:
   friction: .75
   maxSpeed: 3
   speed: 50
-  jumpPower: 200
+  jumpPower: 250
   grounded: 1
   curHealth: 0
   maxHealth: 5
